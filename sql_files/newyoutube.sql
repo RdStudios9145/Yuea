@@ -121,7 +121,7 @@ CREATE TABLE `users` (
   `email` text NOT NULL,
   `password` varchar(64) NOT NULL,
   `dob` date NOT NULL,
-  `yes` varchar(10) NOT NULL,
+  `locked` varchar(10) NOT NULL,
   `profile_pic` text NOT NULL,
   `date_joined` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
