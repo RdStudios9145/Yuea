@@ -1,5 +1,15 @@
 <?php
 include ( './includes/sidebar.php' );
+?>
+<style>
+body {
+	transform: translate(0, -15px);
+}
+#menu {
+	margin-bottom: 20px;
+}
+</style>
+<?php
 if (isset($_POST['submit'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];

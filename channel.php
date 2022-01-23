@@ -57,17 +57,23 @@ if ($count == 1) {
 				      	$account_name = $row['account'];
 				      	$channel_name = $row['channel'];
 				      	$date_created = $row['date_uploaded'];
-				      	//$channel_icon = $row['channel_icon'];
+				      	$video_id = $row['video_id'];
 					$thumbnail = $row['thumbnail'];
 					$title = $row['video_title'];
 					$description = $row['video_description'];
 					$tags = $row['video_keywords'];
 
-					$template = '<div class="videos">
+					$template = '<div class="videos" onclick="window.location = \'watch.php?videoid='.$video_id.'\'">
 					<img src="./data/channels/videos/thumbnails/'.$thumbnail.'" width="150" height="80" class="video_thumbnail" />
-					<h4>'.$title.'</h4>
-					<p class="video_desc">'.$description.'</p>
-					<p class="video_tags">'.$tags.'</p>
+					<div class="video_title">
+						<h2>'.$title.'</h2>
+					</div>
+					<div class="video_desc">
+						<p class="video_desc_p">'.$description.'</p>
+					</div>
+					<div class="video_tags">
+						<p>'.$tags.'</p>
+					</div>
 					</div><br />';
 					$videos = $videos.$template;
 				}

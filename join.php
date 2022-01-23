@@ -1,5 +1,15 @@
 <?php
 include ( './includes/sidebar.php' );
+?>
+<style>
+body {
+	transform: translate(0, -15px);
+}
+#menu {
+	margin-bottom: 20px;
+}
+</style>
+<?php
 $error = "";
 if (@$_POST['register']) {
   	$date = date("Y-m-d");

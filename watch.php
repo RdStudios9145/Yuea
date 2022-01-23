@@ -1,5 +1,15 @@
 <?php
 include ( './includes/sidebar.php' );
+?>
+<style>
+body {
+	transform: translate(0, -15px);
+}
+#menu {
+	margin-bottom: 20px;
+}
+</style>
+<?php
 $videoid = $_GET['videoid'];
 
 $check = DB::query("SELECT * FROM videos WHERE video_id='$videoid'");
@@ -10,7 +20,7 @@ if (count($check) == 1) {
 		$video_title = $row['video_title'];
 		$video_description = $row['video_description'];
 		$video_keywords = $row['video_keywords'];
-		$uploaded_by = $row['uploaded_by'];
+		$uploaded_by = $row['channel'];
 		$date_uploaded = $row['date_uploaded'];
 		$views = $row['views'];
 		$videosrc = $row['file_name'];
@@ -90,9 +100,13 @@ if (count($check) == 1) {
 
 	/* Comment Post Code */
 	if (isset($_POST['post_comment'])) {
-	        $comment_text = trim(htmlentities(strip_tags(stripslashes(htmlspecialchars($_POST['write_comment'])))));
-	        $date_commented = date("Y-m-d");
-	        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid')");
+		if ($user != '') {
+		        $comment_text = trim(htmlentities(strip_tags(stripslashes(htmlspecialchars($_POST['write_comment'])))));
+		        $date_commented = date("Y-m-d");
+		        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid')");
+		} else {
+			header("Location: login.php");
+		}
 	}
 
 	/* Calculate Likes */
