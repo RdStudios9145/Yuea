@@ -11,10 +11,10 @@ else
  	$user = "";
 }
 ?>
-<doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-	<title>VideoBox &bull; <?php echo page_title( 'Share Your Videos with the World!' ); ?></title>
+<head>
+	<title>Yuea &bull; <?php echo page_title('Where amazing things happen'); ?></title>
     <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {
 	echo '
 	<link rel="stylesheet" type="text/css" href="/tutorials/videobox/css/sitestyle.css" />
@@ -43,7 +43,7 @@ else
 	?>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script type="text/javascript" src="js/functions.js"></script>
-	</head>
+</head>
 <body>
 <div class="menu_bg"></div>
 	<div id="wrapper">

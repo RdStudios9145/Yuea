@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 $username = $_GET['u'];
 $check_username = DB::query("SELECT * FROM users WHERE username='$username'");
 $count  = count($check_username);

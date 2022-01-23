@@ -1,4 +1,4 @@
-<?php include ( './includes/header.php' ); ?>
+<?php include ( './includes/sidebar.php' ); ?>
 <br /><br />
 <div class="welcomeDiv">
 <p style="float: right; text-align: left;">

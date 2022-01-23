@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 
 $channel = $_GET['c'];
 

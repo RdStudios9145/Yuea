@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 ?>
 <br /><br /><br />
 <?php
@@ -24,7 +24,7 @@ else {
 		?>
 		<div class="myvideosdiv">
 			<div style="float: left;">
-				<img src="data/users/videos/thumbnails/<?php echo $thumbnail; ?>" width="150" height="80"/>
+				<img src="data/channels/videos/thumbnails/<?php echo $thumbnail; ?>" width="150" height="80"/>
 			</div>
 			<h2><?php echo $title; ?></h2>
 			<div class="myvideosdiv_desc"><?php echo $desc; ?></div><br />

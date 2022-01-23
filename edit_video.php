@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 $videoid = $_GET['videoid'];
 
 $check = DB::query("SELECT * FROM videos WHERE video_id='$videoid'");

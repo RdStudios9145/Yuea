@@ -1,8 +1,8 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 $error = "";
 if (@$_POST['register']) {
-  	$date = date("m d Y");
+  	$date = date("Y-m-d");
  	$firstname = strip_tags($_POST['firstname']);
  	$lastname = strip_tags($_POST['lastname']);
  	$username = strip_tags($_POST['username']);

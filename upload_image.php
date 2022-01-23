@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 
 if (isset($_FILES['channel_pic'])) {
    if (($_FILES['channel_pic']['type']=='image/jpeg') || ($_FILES['channel_pic']['type']=='image/png') || $_FILES['channel_pic']['type']=='image/gif') {

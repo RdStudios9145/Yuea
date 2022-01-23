@@ -1,5 +1,5 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 
 if (isset($_POST['create_channel'])) {
  header("Location: create_channel.php");

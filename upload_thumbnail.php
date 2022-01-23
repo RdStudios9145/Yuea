@@ -1,17 +1,17 @@
 <?php
-include ( './includes/header.php' );
+include ( './includes/sidebar.php' );
 $videoid = $_GET['videoid'];
 if (isset($_FILES['thumbnail'])) {
    if (($_FILES['thumbnail']['type']=='image/jpeg') || ($_FILES['thumbnail']['type']=='image/png') || $_FILES['thumbnail']['type']=='image/gif') {
    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
    $random_directory = substr(str_shuffle($chars), 0, 15);
 
-   if (file_exists('data/users/videos/thumbnails/' . $random_directory . ''.$_FILES['thumbnail']['name'])) {
+   if (file_exists('data/channels/videos/thumbnails/' . $random_directory . ''.$_FILES['thumbnail']['name'])) {
      echo 'image exists';
    }
    else
    {
-   move_uploaded_file($_FILES['thumbnail']['tmp_name'],'data/users/videos/thumbnails/' . $random_directory . ''.$_FILES['thumbnail']['name']);
+   move_uploaded_file($_FILES['thumbnail']['tmp_name'],'data/channels/videos/thumbnails/' . $random_directory . ''.$_FILES['thumbnail']['name']);
    $img_name = $_FILES['thumbnail']['name'];
    $thumbnail = $random_directory.$img_name;
    $assoc_profile_pic = DB::query("UPDATE videos SET thumbnail='$thumbnail' WHERE video_id='$videoid'");
