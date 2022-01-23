@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/* Educate White Menu Stylesheet*/
+
+.menu_bg {
+ position: absolute;
+ top: 0px;
+ height: 39px;
+ width: 100%;
+ background-color: #666666;
+ border-bottom: 1px solid #999999;
+}
+#menu {
+/* background-color:#17A8E5; */
+ float:left;
+ width:100%;
+ background:#666666;
+ border-bottom: 1px solid #999999;
+ overflow:hidden;
+ position:relative;
+ height: 39px;
+ display: block;
+ margin: 0px auto 0px auto;
+ padding: 0px auto 0px auto;
+ left: 50%;
+}
+#menu ul {
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   left:50%;
+   text-align:center;
+}
+#menu ul li {
+   display:block;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   right:50%;
+}
+#menu ul li a {
+   display:block;
+   padding:12px 10px 7px;
+   background:#666666;
+   color:#FFF;
+   text-decoration:none;
+   height: 36px;
+   font-weight: bold;
+   border-right: 1px solid #999999;
+}
+#menu ul li a:hover {
+   background:#666666;
+   color:#FFF;
+   text-decoration:none;
+   border-bottom: 4px solid #999999;
+   height: 20px;
+}
+#menu ul li a:visited {
+   background:#666666;
+   color:#FFF;
+   text-decoration:none;
+}
+#menu ul li a.active,
+#menu ul li a.active:hover {
+   color:#FFF;
+   background:#666666;
+   font-weight:bold;
+}
+#menu ul li a.members,
+#menu ul li a.members:hover {
+   color:#FFF;
+   background:#666666;
+   font-weight:bold;
+   width: 120px;
+}
+#search_box {
+ background-color: #999999;
+ width: 120px;
+ border: 0px;
+ height: 20px;
+ float: left;
+ margin: 8px 0px 0px 5px;
+ outline: none;
+}
+#search_button {
+float: left;
+margin: 0px;
+padding: 0px;	
+ background-color: #999999;
+ width: 20px;
+ height: 20px;
+ border: 0px;
+  margin: 8px 0px;
+  background-image:url(../../images/search_mag.png);
+  background-repeat:no-repeat;
+  background-position:center;
+}
+.menu_featured {
+  width: 60px;
+}  
+.menu_popular {
+ width: 140px;
+}
+.menu_latest {
+ width: 120px;
+}
+.menu_newmembers {
+ width: 140px;
+}
+.menu_channels {
+ width: 80px;
+}
+.menu_login {
+ width: 50px;
+}
+.menu_join {
+ width: 150px;
+}
