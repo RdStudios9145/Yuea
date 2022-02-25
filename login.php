@@ -1,36 +1,23 @@
 <?php
-include ( './includes/sidebar.php' );
-?>
-<style>
-body {
-	transform: translate(0, -15px);
-}
-#menu {
-	margin-bottom: 20px;
-}
-</style>
-<?php
+include ('./includes/sidebar.php');
+
+// TODO: Make signup tokens temperary
+// TODO: Make session tokens instead of username
+
 if (isset($_POST['submit'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-	echo '1';
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
 
-        if (DB::query('SELECT username FROM users WHERE username=:username', array(':username'=>$username))) {
-		echo '2';
+        if (DB::query("SELECT users.username FROM users WHERE users.username=:username", array(':username'=>$username))) {
 
-                $dbPassword = DB::query('SELECT password FROM users WHERE username=:username', array(':username'=>$username))[0]['password'];
+                $dbPassword = DB::query("SELECT users.password FROM users WHERE users.username=:username", array(':username'=>$username))[0]['password'];
                 if (password_verify($password, $dbPassword)) {
                         echo 'logged in';
 
 			$_SESSION['username'] = $username;
-			if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-				$uri = 'https://';
-			} else {
-				$uri = 'http://';
-			}
-			$uri .= $_SERVER['HTTP_HOST'];
-			echo $uri;
-			header('Location: '.$uri.'/tutorials/videobox/members.php');
+			$_SESSION['id'] = DB::query("SELECT id FROM users WHERE username='$username'")[0]['id'];
+			//$_SESSION['channelname'] = DB::query('SELECT channel_name FROM channels WHERE created_by=:created_by', array(':created_by'=>$username))[0]['channel_name'];
+			header('Location: index.php');
 			exit;
 
                 } else {
@@ -40,6 +27,10 @@ if (isset($_POST['submit'])) {
         } else {
                 echo 'user not registered';
         }
+}
+
+if ($loggedIn) {
+	die("already logged in");
 }
 
 ?>

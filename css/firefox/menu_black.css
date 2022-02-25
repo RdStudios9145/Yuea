@@ -84,7 +84,7 @@
 #search_button {
 float: left;
 margin: 0px;
-padding: 0px;	
+padding: 0px;
  background-color: #333333;
  width: 20px;
  height: 20px;
@@ -93,4 +93,8 @@ padding: 0px;
   background-image:url(../../images/search_mag.png);
   background-repeat:no-repeat;
   background-position:center;
+}
+
+.hover_sidebar:hover {
+        border-bottom: 4px solid #0F9;
 }

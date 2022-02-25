@@ -20,19 +20,21 @@ else {
 		$video_id = $row['video_id'];
 		$thumbnail = $row['thumbnail'];
 		$deleted = $row['deleted'];
-		?>
-		<div class="myvideosdiv" style="max-height: 90px;">
-			<a href="<?php echo 'watch.php?videoid='.$video_id ?>">
-				<div style="float: left;">
-					<img src="data/channels/videos/thumbnails/<?php echo $thumbnail; ?>" width="150" height="80"/>
-				</div>
-				<h2><?php echo $video_title; ?></h2>
-				<div class="myvideosdiv_desc"><?php echo $video_description; ?></div><br />
-				Video Views: <strong><?php echo $views; ?></strong>
-			</a>
-		</div>
-
-		<?php
+		echo '<div class="videos" onclick="link(\'watch.php?videoid='.$video_id.'\')">
+			<img src="data/channels/videos/thumbnails/'.$thumbnail.'" width="150" height="80" class="video_thumbnail"/>
+			<div class="video_title">
+				<h2>'.$video_title.'</h2>
+			</div>
+			<div class="video_desc">
+				<p class="video_desc_p">'.$video_description.'</p>
+			</div><br />
+			<div class="video_tags">
+				<p>'.$video_keywords.'</p>
+			</div>
+			<div class="video_views">
+				<p>Video Views: <strong>'.$views.'</strong></p>
+			</div>
+		</div>';
 
 	}
 }

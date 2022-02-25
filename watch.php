@@ -1,15 +1,13 @@
 <?php
 include ( './includes/sidebar.php' );
-?>
-<style>
-body {
-	transform: translate(0, -15px);
-}
-#menu {
-	margin-bottom: 20px;
-}
-</style>
-<?php
+
+// TODO: Fix like and dislike
+// TODO: Fix view counter
+// TODO: _General_ Collect data for google recommended ai
+// TODO: _General_ Get playtesters to test the limits of Yuea and the exploits
+// TODO: _General_ Improve asthetic
+// TODO: Improve asthetic of watch.php
+
 $videoid = $_GET['videoid'];
 
 $check = DB::query("SELECT * FROM videos WHERE video_id='$videoid'");
@@ -103,7 +101,7 @@ if (count($check) == 1) {
 		if ($user != '') {
 		        $comment_text = trim(htmlentities(strip_tags(stripslashes(htmlspecialchars($_POST['write_comment'])))));
 		        $date_commented = date("Y-m-d");
-		        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid')");
+		        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid',null)");
 		} else {
 			header("Location: login.php");
 		}

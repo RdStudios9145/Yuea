@@ -2,15 +2,13 @@
 include ( './includes/sidebar.php' );
 $channel = $_GET['c'];
 $check_subscribe = DB::query("SELECT * FROM subscriptions WHERE user_who_subscribed='$user'");
-$count_s  = count($check_subscribe);
-if ($count_s > 0) {
+if (count($check_subscribe) > 0) {
 	$subbutton = 'Unsubscribe';
 } else {
 	$subbutton = 'Subscribe';
 }
 $check_channel = DB::query("SELECT * FROM channels WHERE channel_name='$channel'");
-$count = count($check_channel);
-if ($count == 1) {
+if (count($check_channel)) {
 	for ($i = 0; $i < count($check_channel); $i++) {
 		$row = $check_channel[$i];
 		$id = $row['id'];
@@ -18,15 +16,19 @@ if ($count == 1) {
 		$created_by = $row['created_by'];
 		$date_created = $row['date_created'];
 		$channel_icon = $row['channel_icon'];
+		$member_name = $row['created_by'];
 		if (isset($_POST['subscribe'])) {
 			$check_subscribe = DB::query("SELECT * FROM subscriptions WHERE user_who_subscribed='$user' && channel_name='$channel_name'");
 			$count_s = count($check_subscribe);
-			if ($user != '') {
+			if ($loggedIn) {
+				if ($created_by == $user) {
+					header("Location: channel.php?c=$channel_name");
+				}
 				if ($count_s > 0) {
 					$subscribe_query = DB::query("DELETE FROM subscriptions WHERE user_who_subscribed='$user' && channel_name='$channel_name'");
 					header("Location: channel.php?c=$channel_name");
 				} else {
-					$subscribe_query = DB::query("INSERT INTO subscriptions VALUES ('','$user','$channel_name','no')");
+					$subscribe_query = DB::query("INSERT INTO subscriptions VALUES ('','$user','$channel_name','$member_name','no')");
 					header("Location: channel.php?c=$channel_name");
 				}
 			} else {
@@ -62,19 +64,23 @@ if ($count == 1) {
 					$title = $row['video_title'];
 					$description = $row['video_description'];
 					$tags = $row['video_keywords'];
+					$views = $row['views'];
 
-					$template = '<div class="videos" onclick="window.location = \'watch.php?videoid='.$video_id.'\'">
-					<img src="./data/channels/videos/thumbnails/'.$thumbnail.'" width="150" height="80" class="video_thumbnail" />
-					<div class="video_title">
-						<h2>'.$title.'</h2>
-					</div>
-					<div class="video_desc">
-						<p class="video_desc_p">'.$description.'</p>
-					</div>
-					<div class="video_tags">
-						<p>'.$tags.'</p>
-					</div>
-					</div><br />';
+					$template = '<div class="videos" onclick="link(\'watch.php?videoid='.$video_id.'\')">
+						<img src="data/channels/videos/thumbnails/'.$thumbnail.'" width="150" height="80" class="video_thumbnail"/>
+						<div class="video_title">
+							<h2>'.$title.'</h2>
+						</div>
+						<div class="video_desc">
+							<p class="video_desc_p">'.$description.'</p>
+						</div><br />
+						<div class="video_tags">
+							<p>'.$tags.'</p>
+						</div>
+						<div class="video_views">
+							<p>Video Views: <strong>'.$views.'</strong></p>
+						</div>
+					</div>';
 					$videos = $videos.$template;
 				}
 				echo $videos;

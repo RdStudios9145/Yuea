@@ -1,107 +1,99 @@
 <?php
 include ( './includes/sidebar.php' );
-?>
-<style>
-body {
-	transform: translate(0, -15px);
-}
-#menu {
-	margin-bottom: 20px;
-}
-</style>
-<?php
+
+
+
 $error = "";
-if (@$_POST['register']) {
-  	$date = date("Y-m-d");
- 	$firstname = strip_tags($_POST['firstname']);
- 	$lastname = strip_tags($_POST['lastname']);
- 	$username = strip_tags($_POST['username']);
- 	$email = strip_tags($_POST['email']);
- 	$password1 = strip_tags($_POST['password']);
- 	$password2 = strip_tags($_POST['passwordrepeat']);
+$invCode = $_GET['inv'] ?? null;
+$check_inv = DB::query("SELECT inv_code FROM users WHERE inv_code='$invCode'");
+if (count($check_inv) == 1) {
+	if (@$_POST['register']) {
+	  	$date = date("Y-m-d");
+	 	$firstname = htmlspecialchars(strip_tags($_POST['firstname']));
+	 	$lastname = htmlspecialchars(strip_tags($_POST['lastname']));
+	 	$username = htmlspecialchars(strip_tags($_POST['username']));
+	 	$email = htmlspecialchars(strip_tags($_POST['email']));
+	 	$password1 = htmlspecialchars(strip_tags($_POST['password']));
+	 	$password2 = htmlspecialchars(strip_tags($_POST['passwordrepeat']));
 
- 	$day = strip_tags($_POST['day']);
- 	$month = strip_tags($_POST['month']);
- 	$year = strip_tags($_POST['year']);
- 	$dob = "$day/$month/$year";
+	 	$dob = htmlspecialchars(strip_tags($_POST['date']));
 
-	if ($firstname == "") {
-		$error = "Firstname cannot be left empty.";
+		if ($firstname == "") {
+			$error = "Firstname cannot be left empty.";
+		} else if ($lastname == "") {
+			$error = "Lastname cannot be left empty.";
+		} else if ($username == "") {
+			$error = "Username cannot be left empty.";
+		} else if ($email == "") {
+			$error = "Email cannot be left empty.";
+		} else if ($password1 == "") {
+			$error = "Password cannot be left empty.";
+		} else if ($password2 == "") {
+			$error = "Repeat Password cannot be left empty.";
+		} else if ($invCode == null) {
+			$error = "inv";
+			die("You must have been invited to join");
+		}
+		//Check the username doesn't already exist
+		$check_username = DB::query("SELECT `username` FROM `users` WHERE username='$username'"/*, array(":username" => $username)*/);
+		$numrows_username = count($check_username);
+		if ($numrows_username != 0) {
+			$error = 'That username has already been registered.';
+		} else {
+			$check_email = DB::query("SELECT email FROM users WHERE email='$email'"/*, array(":email" => $email)*/);
+			$numrows_email = count($check_email);
+			if ($numrows_email != 0) {
+				$error = 'That email has already been registered.';
+			} else {
+				if ($password1 != $password2) {
+					$error = 'The passwords don\'t match!';
+				} else if ($error == "") {
+					//Register the user
+					$password = password_hash($password1, PASSWORD_BCRYPT);
+					$work = true;
+					$confWork = true;
+					$newInvCode = "";
+					$newConfCode = "";
+					$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+=-_!@#$%^&*()`~abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+=-_!@#$%^&*()`~';
+					while ($work || $confWork) {
+						if ($work) {
+							$newInvCode = substr(str_shuffle($chars), 0, 50);
+							$invCheck = DB::query("SELECT inv_code FROM users WHERE inv_code='$newInvCode'");
+							if (count($invCheck) == 0)
+								$work = false;
+						}
+						if ($confWork) {
+							$newConfCode = substr(str_shuffle($chars), 0, 120);
+							$confCheck = DB::query("SELECT conf_code FROM confirmation WHERE conf_code='$newConfCode'");
+							if (count($invCheck) == 0)
+								$confWork = false;
+						}
+					}
+					try {
+						$register = DB::query("INSERT INTO users VALUES('','$firstname','$lastname','$username','$email', '$password','$dob','no','','$date','$newInvCode','0')") ?? throw new \Exception("Error Processing Request", 1);
+						$confRegister = DB::query("INSERT INTO confirmation VALUES('','$newConfCode','$username','$email')") ?? throw new \Exeption("Error Processing Request", 1);
+						mail::send(1, $email, $newConfCode);
+					} catch (Exeption) {
+						die("There was an error trying to create your account, please try again at another time");
+					}
+				}
+			}
+		}
 	}
-	else if ($lastname == "") {
-		$error = "Lastname cannot be left empty.";
-	}
-	 else if ($username == "") {
-	  $error = "Username cannot be left empty.";
-	 }
-	 else if ($email == "") {
-	  $error = "Email cannot be left empty.";
-	 }
-	 else if ($password1 == "") {
-	  $error = "Password cannot be left empty.";
-	 }
-	 else if ($password2 == "") {
-	  $error = "Repeat Password cannot be left empty.";
-	 }
-	 else if ($day == "") {
-	  $error = "The day you were born cannot be left empty.";
-	 }
-	 else if ($month == "") {
-	  $error = "The month you were born cannot be left empty.";
-	 }
-	 else if ($year == "") {
-	  $error = "The year you were born cannot be left empty.";
-	 }
- //Check the username doesn't already exist
-	$check_username = DB::query("SELECT `username` FROM `users` WHERE username='$username'"/*, array(":username" => $username)*/);
- print_r($check_username);
- $numrows_username = count($check_username);
- if ($numrows_username != 0) {
-  $error = 'That username has already been registered.';
- }
- else
- {
- $check_email = DB::query("SELECT email FROM users WHERE email='$email'"/*, array(":email" => $email)*/);
- $numrows_email = count($check_email);
- if ($numrows_email != 0) {
-  $error = 'That email has already been registered.';
- }
- else
- {
- if ($password1 != $password2) {
- $error = 'The passwords don\'t match!';
- }
- else
- {
- //Register the user
- $password = password_hash($password1, PASSWORD_BCRYPT);
- $register = DB::query("INSERT INTO users VALUES('','$firstname','$lastname','$username','$email','$password','$dob','no','','$date')"/*, array(
-	":firstname" => $firstname,
-	":lastname"  => $lastname,
-	":username"  => $username,
-	":email"     => $email,
-	":password1" => $password1,
-	":dob"       => $dob,
-	":date"      => $date
-)*/);
- die('Registered successfully!');
- }
- }
- }
+} else {
+	die("You must have been invited to join");
 }
 ?>
 <h2>Create Your Account</h2>
-<form action='join.php' method='POST'>
-<input type='text' name='firstname' value='Firstname ...' onclick='value=""'/><p />
-<input type='text' name='lastname' value='Lastname ...' onclick='value=""'/><p />
-<input type='text' name='username' value='Username ...' onclick='value=""'/><p />
-<input type='text' name='email' value='Email ...' onclick='value=""'/><p />
-<input type='text' name='password' value='Password ...' onclick='value=""'/><p />
-<input type='text' name='passwordrepeat' value='Repeat Password ...' onclick='value=""'/><p />
-<input type='text' name='day' value='' size='3' maxlength='2' onclick='value=""'/>
-<input type='text' name='month' value='' size='6' maxlength='2' onclick='value=""'/>
-<input type='text' name='year' value='' size='4' maxlength='4' onclick='value=""'/><p />
+<form action='join.php?inv=<?php echo $invCode ?>' method='POST'>
+<input type='text' name='firstname' placeholder='Firstname ...'/><p />
+<input type='text' name='lastname' placeholder='Lastname ...'/><p />
+<input type='text' name='username' placeholder='Username ...'/><p />
+<input type='email' name='email' placeholder='Email ...'/><p />
+<input type='password' name='password' placeholder='Password ...'/><p />
+<input type='password' name='passwordrepeat' placeholder='Repeat Password ...'/><p />
+<input type='date' name='date'/><p />
 
 <input type='submit' name='register' value='Create Your Account' />
-<?php echo $error; ?>
+<?php echo '<div id=""'.$error; ?>
 </form>

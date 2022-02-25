@@ -2,25 +2,24 @@
 include ( './includes/sidebar.php' );
 
 if (isset($_POST['create_channel'])) {
- header("Location: create_channel.php");
+	header("Location: create_channel.php");
 }
-$get_profile_pic = DB::query("SELECT profile_pic FROM users WHERE username='$user'");
+$get_profile_pic = DB::query("SELECT profile_pic, id FROM users WHERE username='$user'");
 $numrows_profile_pic = count($get_profile_pic);
-if ($numrows_profile_pic == 1) {
-for ($i = 0; $i < count($get_profile_pic); $i++) {
-	$row = $get_profile_pic[$i];
- $profile_pic = $row['profile_pic'];
+if ($numrows_profile_pic >0) {
+	for ($i = 0; $i < count($get_profile_pic); $i++) {
+		$row = $get_profile_pic[$i];
+		$profile_pic = $row['profile_pic'];
 
- if ($profile_pic == '') {
- echo "<img src='./data/users/images/icons/default.jpg' height='120'>";
- }
- else {
- echo "<img src='./data/users/images/icons/$profile_pic' height='120'>";
- }
-}
-}
-else {
- die('unknown error');
+		if ($profile_pic == '') {
+			echo "<img src='./data/users/images/icons/default.jpg' height='120'>";
+		} else {
+			echo "<img src='./data/users/images/icons/$profile_pic' height='120'>";
+		}
+	}
+} else {
+	print_r($get_profile_pic);
+	die('failed to log in '.$numrows_profile_pic.",".$user);
 }
 ?>
 <h2>Members Page</h2>
