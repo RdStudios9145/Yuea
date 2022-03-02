@@ -1,10 +1,10 @@
 <?php
 include ( './includes/sidebar.php' );
 
-// TODO: Fix like and dislike
+// DONE: Fix like and dislike
 // TODO: Fix view counter
 // TODO: _General_ Collect data for google recommended ai
-// TODO: _General_ Get playtesters to test the limits of Yuea and the exploits
+// TODO: _General_ Get playtesters
 // TODO: _General_ Improve asthetic
 // TODO: Improve asthetic of watch.php
 
@@ -30,8 +30,8 @@ if (count($check) == 1) {
 	?>
 	<h2><?php echo $video_title; ?></h2>
 	<div style="float: left;">
-	<video width="480" height="320" autoplay controls>
-	<source src="<?php echo $videosrc; ?>" type="video/mp4">
+	<video width="480" height="320" autoplay>
+	<source src="<?php echo '/tutorials/videobox/'.$videosrc; ?>" type="video/mp4">
 	Your browser doesn't support the HTML5 video tag.
 	</video>
 	</div>
@@ -50,49 +50,53 @@ if (count($check) == 1) {
 	<?php
 
 	/* Check if already liked / disliked */
-	$check_l = DB::query("SELECT * FROM ratings WHERE videoid='$videoid' AND username='$user'");
-	if (count($check_l) != 0) {
-		for ($i = 0; $i < count($check_l); $i++) {
-			$rating = $check_l[$i];
-			$videoid_l = $rating['videoid'];
-			$type = $rating['type'];
-			$user_l = $rating['username'];
+	$check_l = DB::query("SELECT * FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'");
+	if (count($check_l) == 1) {
+		$rating = $check_l[0];
+		$videoid_l = $rating['videoid'];
+		$user_l = $rating['username'];
 
-			$d = "";
-			$d2 = "";
+		$d = "";
+		$d2 = "";
 
-			if ($type == 'like') {
-				$d = 'disabled';
-	      		} else {
-				$d2 = 'disabled';
-		    	}
+	    	/* Add ratings code */
 
-	    		/* Add ratings code */
+		if ($user == '' && isset($_POST['like']) || $user == '' && isset($_POST['dislike'])) {
+			echo "<script>link('/tutorials/videobox/login.php')</script>";
+		} else if (isset($_POST['like'])) {
+			DB::query("UPDATE ratings SET type='like' WHERE videoid='$videoid' AND username='$user'");
+			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+		} else if (isset($_POST['dislike'])) {
+			DB::query("UPDATE ratings SET type='dislike' WHERE videoid='$videoid' AND username='$user'");
+			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+		}
 
-			if ($user == '' && isset($_POST['like']) || $user == '' && isset($_POST['dislike'])) {
-				header("Location: login.php");
-			} else if (isset($_POST['like'])) {
-				//DB::query("UPDATE ratings SET type='like' WHERE videoid='$videoid' AND username='$user'");
-				header("Location: watch.php?videoid=$videoid");
-			} else if (isset($_POST['dislike'])) {
-				//DB::query("UPDATE ratings SET type='dislike' WHERE videoid='$videoid' AND username='$user'");
-				header("Location: watch.php?videoid=$videoid");
-			}
-
-	  	}
+		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'];
+		if ($type == 'like') {
+			$d = 'disabled';
+	      	} else if ($type == 'dislike') {
+			$d2 = 'disabled';
+		}
 	} else {
 		$d = "";
 		$d2 = "";
 		  /* Add ratings code */
 
 		if ($user == '' && isset($_POST['like']) || $user == '' && isset($_POST['dislike'])) {
-	  		header("Location: login.php");
+	  		echo "<script>link('/tutorials/videobox/login.php')</script>";
 	  	} else if (isset($_POST['like'])) {
 			DB::query("INSERT INTO ratings VALUES ('','$videoid','like','$user')");
-			header("Location: watch.php?videoid=$videoid");
+			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
 		} else if (isset($_POST['dislike'])) {
 			DB::query("INSERT INTO ratings VALUES ('','$videoid','dislike','$user')");
-			header("Location: watch.php?videoid=$videoid");
+			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+		}
+
+		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'];
+		if ($type == 'like') {
+			$d = 'disabled';
+	      	} else if ($type == 'dislike') {
+			$d2 = 'disabled';
 		}
 	}
 
@@ -103,7 +107,7 @@ if (count($check) == 1) {
 		        $date_commented = date("Y-m-d");
 		        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid',null)");
 		} else {
-			header("Location: login.php");
+			echo "<script>link('/tutorials/videobox/login.php')</script>";
 		}
 	}
 
@@ -136,7 +140,7 @@ if (count($check) == 1) {
 	        <div style="float: left; height: 25px; width: 475px;">
 	        	<div style="float: left; width: 50%;">
 	        		<div style="margin-top: -5px;">
-	              			<form action='watch.php?videoid=<?php echo $videoid; ?>' method='POST'>
+	              			<form action='/tutorials/videobox/watch/<?php echo $videoid; ?>' method='POST'>
 	                			<input type='submit' name='like' value='Like' <?php echo $d; ?>>
 	                			<input type='submit' name='dislike' value='Dislike' <?php echo $d2; ?>>
 	              			</form>
@@ -150,7 +154,7 @@ if (count($check) == 1) {
 	           	</div>
 	        </div>
 	        <div style="float: left; width: 100%;">
-	        	<form action="watch.php?videoid=<?php echo $videoid; ?>" method="POST">
+	        	<form action="/tutorials/videobox/watch/<?php echo $videoid; ?>" method="POST">
 	        		<textarea name="write_comment" rows="7" cols="43" style="float: left;"></textarea>
 	           		<input type="submit" name="post_comment" value="Post Comment" style="height: 120px; float: left;">
 	           	</form>
@@ -170,7 +174,7 @@ if (count($check) == 1) {
 		        	?>
 
 		<div style="float: left;">
-			<form action="watch.php?videoid=<?php echo $videoid; ?>" method="POST">
+			<form action="/tutorials/videobox/watch/<?php echo $videoid; ?>" method="POST">
 		        </form>
 		</div><br />
 		<div style="float: left; width: 150px;">

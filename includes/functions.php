@@ -93,8 +93,18 @@ try {
 
 	function error($errorMsg) {
 		echo '<form action="index.php" method="post">
-		<input type="hidden" name="errorMsg" value="'.$errorMsg.'">
+		<input type="hidden" name="errorMSG" value="'.$errorMsg.'">
 		<input type="submit" name="error" value="" id="submitErrorMessage">
+		<script type="text/javascript">
+			$("#submitErrorMessage").click()
+		</script>
+	</form>';
+	}
+
+	function message($Msg) {
+		echo '<form action="index.php" method="post">
+		<input type="hidden" name="MSG" value="'.$Msg.'">
+		<input type="submit" name="message" value="" id="submitErrorMessage">
 		<script type="text/javascript">
 			$("#submitErrorMessage").click()
 		</script>

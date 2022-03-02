@@ -1,9 +1,9 @@
 <?php
 
 // TODO: Post with images
-include  ('./includes/functions.php');
-includeWithVariables('./includes/sidebar.php', array('e' => 'hello', 'functions' => true));
-// include ( './includes/sidebar.php' );
+// include  ('./includes/functions.php');
+// includeWithVariables('./includes/sidebar.php', array('e' => 'hello', 'functions' => true, 'browser' => $browser));
+include ( './includes/sidebar.php' );
 
 if (isset($_POST['post']) && $loggedIn) {
 	$body = htmlspecialchars($_POST['post_body']);
@@ -11,8 +11,13 @@ if (isset($_POST['post']) && $loggedIn) {
 	$date = date("Y-m-d");
 	DB::query('INSERT INTO posts VALUES("", $body, $channel, $user, $date, 0)');
 }
+
 if (isset($_POST['error'])) {
-	echo $_POST['errorMsg'];
+	echo $_POST['errorMSG'];
+}
+
+if (isset($_POST['message'])) {
+	echo $_POST['MSG'];
 }
 
 ?>

@@ -4,17 +4,17 @@ session_start();
 // TODO: Create icons for sidebar
 // TODO: Make sidebar collapseable?
 
-echo $e;
+// echo $e;
 
-if (!$functions) include  ('./includes/functions.php');
+include  ('./includes/functions.php');
 include ('./includes/connect_to_mysql.php');
 include('./includes/mail.php');
 try {
 	$user = "";
 	$loggedIn = false;
 	$userID = -1;
-	$heart = './images/support_heart.ico';
-	$supportImga = array($heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, './images/support_money.png')[rand(0, 9)];
+	$heart = '/tutorials/videobox/images/support_heart.ico';
+	$supportImg = array($heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, '/tutorials/videobox/images/support_money.png')[rand(0, 9)];
 	unset($heart);
 	//$channel = "";
 	if (isset($_SESSION['username'])) {
@@ -107,9 +107,9 @@ try {
 	    		<div id="menu">
 	            		<ul>
 	                        <li class="menu_featured"><a href="#">FEATURED</a></li>
-		                <li class="menu_popular"><a href="popular.php">POPULAR VIDEOS</a></li>
-	                        <li class="menu_latest"><a href="latest_videos.php">LATEST VIDEOS</a></li>
-	                        <li class="menu_newmembers"><a href="latest_members.php">RECENT MEMBERS</a></li>
+		                <li class="menu_popular"><a href="/popular.php">POPULAR VIDEOS</a></li>
+	                        <li class="menu_latest"><a href="/latest_videos.php">LATEST VIDEOS</a></li>
+	                        <li class="menu_newmembers"><a href="/latest_members.php">RECENT MEMBERS</a></li>
 	                        <li class="menu_channels"><a href="#">CHANNELS</a></li>
 	                        <?php if ($user == "") {
 					echo '<li class="menu_login"><a href="login.php">LOGIN</a></li>
