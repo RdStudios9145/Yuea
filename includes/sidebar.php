@@ -13,8 +13,8 @@ try {
 	$user = "";
 	$loggedIn = false;
 	$userID = -1;
-	$heart = '/tutorials/videobox/images/support_heart.ico';
-	$supportImg = array($heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, '/tutorials/videobox/images/support_money.png')[rand(0, 9)];
+	$heart = '/images/support_heart.ico';
+	$supportImg = array($heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, '/images/support_money.png')[rand(0, 9)];
 	unset($heart);
 	//$channel = "";
 	if (isset($_SESSION['username'])) {
@@ -22,7 +22,7 @@ try {
 		$userID = $_SESSION['id'] ?? throw new \Exception("error logging in");
 		$loggedIn = true;
 	} else {
-		if ($_SERVER['REQUEST_URI'] != "/tutorials/videobox/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/tutorials/videobox/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
+		if ($_SERVER['REQUEST_URI'] != "/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
 			header("Location: login.php");
 		}
 	}
@@ -33,8 +33,8 @@ try {
 		<title>Yuea &bull; <?php echo 'Where amazing things happen'; ?></title>
 	    <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {
 		echo '
-		<link rel="stylesheet" type="text/css" href="/tutorials/videobox/css/sitestyle.css" />
-	    <link id="edu_menu" rel="stylesheet" type="text/css" href="/tutorials/videobox/css/webkit/menu_black.css" />
+		<link rel="stylesheet" type="text/css" href="/css/sitestyle.css" />
+	    <link id="edu_menu" rel="stylesheet" type="text/css" href="/css/webkit/menu_black.css" />
 		';
 		}
 		else if ($browser == "Mozilla Firefox") {
@@ -139,7 +139,7 @@ try {
 <?php
 } catch(Exception $e) {
 	if ($e->getMessage() == "error logging in") {
-		if ($_SERVER['REQUEST_URI'] != "/tutorials/videobox/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/tutorials/videobox/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
+		if ($_SERVER['REQUEST_URI'] != "/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
 			echo '<script type="text/javascript">link("login.php")</script>';
 		}
 	} else

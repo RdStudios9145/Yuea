@@ -17,8 +17,8 @@ else
 	<title>Yuea &bull; <?php echo page_title('Where amazing things happen'); ?></title>
     <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {
 	echo '
-	<link rel="stylesheet" type="text/css" href="/tutorials/videobox/css/sitestyle.css" />
-    <link id="edu_menu" rel="stylesheet" type="text/css" href="/tutorials/videobox/css/webkit/menu_black.css" />
+	<link rel="stylesheet" type="text/css" href="/css/sitestyle.css" />
+    <link id="edu_menu" rel="stylesheet" type="text/css" href="/css/webkit/menu_black.css" />
 	';
 	}
 	else if ($browser == "Mozilla Firefox") {

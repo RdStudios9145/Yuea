@@ -31,7 +31,7 @@ if (count($check) == 1) {
 	<h2><?php echo $video_title; ?></h2>
 	<div style="float: left;">
 	<video width="480" height="320" autoplay>
-	<source src="<?php echo '/tutorials/videobox/'.$videosrc; ?>" type="video/mp4">
+	<source src="<?php echo '/'.$videosrc; ?>" type="video/mp4">
 	Your browser doesn't support the HTML5 video tag.
 	</video>
 	</div>
@@ -62,13 +62,13 @@ if (count($check) == 1) {
 	    	/* Add ratings code */
 
 		if ($user == '' && isset($_POST['like']) || $user == '' && isset($_POST['dislike'])) {
-			echo "<script>link('/tutorials/videobox/login.php')</script>";
+			echo "<script>link('/login.php')</script>";
 		} else if (isset($_POST['like'])) {
 			DB::query("UPDATE ratings SET type='like' WHERE videoid='$videoid' AND username='$user'");
-			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+			//echo "<script>link('/watch/$videoid')</script>";
 		} else if (isset($_POST['dislike'])) {
 			DB::query("UPDATE ratings SET type='dislike' WHERE videoid='$videoid' AND username='$user'");
-			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+			//echo "<script>link('/watch/$videoid')</script>";
 		}
 
 		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'];
@@ -83,13 +83,13 @@ if (count($check) == 1) {
 		  /* Add ratings code */
 
 		if ($user == '' && isset($_POST['like']) || $user == '' && isset($_POST['dislike'])) {
-	  		echo "<script>link('/tutorials/videobox/login.php')</script>";
+	  		echo "<script>link('/login.php')</script>";
 	  	} else if (isset($_POST['like'])) {
 			DB::query("INSERT INTO ratings VALUES ('','$videoid','like','$user')");
-			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+			//echo "<script>link('/watch/$videoid')</script>";
 		} else if (isset($_POST['dislike'])) {
 			DB::query("INSERT INTO ratings VALUES ('','$videoid','dislike','$user')");
-			//echo "<script>link('/tutorials/videobox/watch/$videoid')</script>";
+			//echo "<script>link('/watch/$videoid')</script>";
 		}
 
 		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'];
@@ -107,7 +107,7 @@ if (count($check) == 1) {
 		        $date_commented = date("Y-m-d");
 		        DB::query("INSERT INTO comments VALUES ('','$user','$comment_text','$date_commented','$videoid',null)");
 		} else {
-			echo "<script>link('/tutorials/videobox/login.php')</script>";
+			echo "<script>link('/login.php')</script>";
 		}
 	}
 
@@ -140,7 +140,7 @@ if (count($check) == 1) {
 	        <div style="float: left; height: 25px; width: 475px;">
 	        	<div style="float: left; width: 50%;">
 	        		<div style="margin-top: -5px;">
-	              			<form action='/tutorials/videobox/watch/<?php echo $videoid; ?>' method='POST'>
+	              			<form action='/watch/<?php echo $videoid; ?>' method='POST'>
 	                			<input type='submit' name='like' value='Like' <?php echo $d; ?>>
 	                			<input type='submit' name='dislike' value='Dislike' <?php echo $d2; ?>>
 	              			</form>
@@ -154,7 +154,7 @@ if (count($check) == 1) {
 	           	</div>
 	        </div>
 	        <div style="float: left; width: 100%;">
-	        	<form action="/tutorials/videobox/watch/<?php echo $videoid; ?>" method="POST">
+	        	<form action="/watch/<?php echo $videoid; ?>" method="POST">
 	        		<textarea name="write_comment" rows="7" cols="43" style="float: left;"></textarea>
 	           		<input type="submit" name="post_comment" value="Post Comment" style="height: 120px; float: left;">
 	           	</form>
@@ -174,7 +174,7 @@ if (count($check) == 1) {
 		        	?>
 
 		<div style="float: left;">
-			<form action="/tutorials/videobox/watch/<?php echo $videoid; ?>" method="POST">
+			<form action="/watch/<?php echo $videoid; ?>" method="POST">
 		        </form>
 		</div><br />
 		<div style="float: left; width: 150px;">
