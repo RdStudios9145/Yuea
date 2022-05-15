@@ -1,0 +1,9 @@
+Frontend:
+  - js/jquery
+
+Api:
+  - PHPMailer
+
+Backend:
+  - PHP
+  - MySQL
