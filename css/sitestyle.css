@@ -28,18 +28,20 @@ html {
 	height: 100%;
 	margin: 0;
 }
+
 body {
- margin: 0px;
- padding: 0px;
- font-family: Arial, Helvetica, sans-serif;
- font-size: 12px;
- background-color: #1f1f1f;
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #1f1f1f;
 }
+
 #wrapper {
- width: 830px;
- background-color: inherit;
- height: 100%;
- margin: 0px auto 0px auto;
+	width: 830px;
+	background-color: inherit;
+	height: 100%;
+	margin: 0px auto 0px auto;
 }
 
 #menu {
@@ -47,25 +49,29 @@ body {
 }
 
 .welcomeDiv {
- background-color: #F1F1F1;
- width: 820px;
- margin: 0px auto 0px auto;
- padding: 5px;
- border-bottom: 1px solid #CCCCCC;
+	background-color: #F1F1F1;
+	width: 820px;
+	margin: 0px auto 0px auto;
+	padding: 5px;
+	border-bottom: 1px solid #CCCCCC;
 }
+
 .welcomeDiv h2 {
- font-family: Arial, Helvetica, Sans-serif;
- font-weight: 200;
- font-size: 20px;
- display:inline;
- float: right;
+	font-family: Arial, Helvetica, Sans-serif;
+	font-weight: 200;
+	font-size: 20px;
+	display:inline;
+	float: right;
 }
+
 h2 {
 	font-weight: 200;
 	border-bottom: 1px;
 	border-style: none none solid none;
 	border-image: linear-gradient(90deg, #0f9, #019f9f) 1;
+	color: white;
 }
+
 .channeloptions {
 	background-color: #F1F1F1;
        	width: 200px;
@@ -77,40 +83,48 @@ h2 {
        	position: absolute;
        	padding-top: 1px;
 }
+
 .channeloptions h2 {
- color: #333333;
- text-decoration: none;
- text-align: center;
- border-bottom: none;
+	color: #333333;
+	text-decoration: none;
+	text-align: center;
+	border-bottom: none;
 }
+
 .channelvideocontainer {
- overflow: auto;
- overflow-x: auto;
- float: right;
- height: 90%;
- width: 73%;
- text-align: right;
+	overflow: auto;
+	overflow-x: auto;
+	float: right;
+	height: 90%;
+	width: 73%;
+	text-align: right;
 	padding-right: 10px;
 	border-right: 1px solid #ccc;
 }
+
 .channelvideocontainer img {
-  padding: 10px;
+	padding: 10px;
 }
+
 .myvideosdiv {
-width: 900px;
-height: 115px;
-background-color: #FFF;
-border-bottom: 1px solid #ccc;
+	width: 900px;
+	height: 115px;
+	background-color: #FFF;
+	border-bottom: 1px solid #ccc;
 }
+
 .myvideosdiv:hover {
-background-color: #f2f2f2;
+	background-color: #f2f2f2;
 }
+
 .myvideosdiv h2 {
 	border-bottom: none;
 }
+
 .myvideosdiv_desc {
 	width: 50%;
 }
+
 .myvideosdiv_tags {
 	margin-top: 15px;
 	border-top: 1px solid #ccc;
@@ -326,4 +340,24 @@ input#post {
 	border-radius: 20px;
 	border-width: 0px;
 	padding: 10px 15px 10px 15px;
+}
+
+p, .white {
+	color: white;
+}
+
+.black {
+	color: black;
+}
+
+#post_image_button_containter {
+	width: 20px;
+	height: 20px;
+	background-color: #0ff9;
+}
+
+#post_image_button {
+	width: 20px;
+	height: 20px;
+	opacity: 0;
 }

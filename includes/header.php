@@ -12,7 +12,7 @@ else
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Yuea &bull; <?php echo page_title('Where amazing things happen'); ?></title>
     <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {

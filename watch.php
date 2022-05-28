@@ -92,7 +92,7 @@ if (count($check) == 1) {
 			//echo "<script>link('/watch/$videoid')</script>";
 		}
 
-		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'];
+		$type = DB::query("SELECT ratings.type FROM ratings WHERE ratings.videoid='$videoid' AND ratings.username='$user'")[0]['type'] ?? null;
 		if ($type == 'like') {
 			$d = 'disabled';
 	      	} else if ($type == 'dislike') {

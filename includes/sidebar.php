@@ -13,9 +13,6 @@ try {
 	$user = "";
 	$loggedIn = false;
 	$userID = -1;
-	$heart = '/images/support_heart.ico';
-	$supportImg = array($heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, $heart, '/images/support_money.png')[rand(0, 9)];
-	unset($heart);
 	//$channel = "";
 	if (isset($_SESSION['username'])) {
 		$user = $_SESSION['username'] ?? throw new \Exception("error logging in");
@@ -23,44 +20,29 @@ try {
 		$loggedIn = true;
 	} else {
 		if ($_SERVER['REQUEST_URI'] != "/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
-			header("Location: login.php");
+			// header("Location: login.php");
 		}
 	}
 	?>
 	<!DOCTYPE html>
-	<html>
+	<html lang="en">
 	<head>
 		<title>Yuea &bull; <?php echo 'Where amazing things happen'; ?></title>
-	    <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {
-		echo '
 		<link rel="stylesheet" type="text/css" href="/css/sitestyle.css" />
-	    <link id="edu_menu" rel="stylesheet" type="text/css" href="/css/webkit/menu_black.css" />
-		';
-		}
-		else if ($browser == "Mozilla Firefox") {
-		echo '
-		<link rel="stylesheet" type="text/css" href="./css/sitestyle.css" />
-	    <link id="edu_menu" rel="stylesheet" type="text/css" href="./css/firefox/menu_black.css" />
-		';
-		}
-		else if ($browser == "Internet Explorer") {
-		echo '
-		<link rel="stylesheet" type="text/css" href="./css/sitestyle.css" />
-	    <link id="edu_menu" rel="stylesheet" type="text/css" href="./css/ie/menu_black.css" />
-		';
-		}
-	        else
-	        {
-	        echo '
-	        <link rel="stylesheet" type="text/css" href="./css/sitestyle.css" />
-	    <link id="edu_menu" rel="stylesheet" type="text/css" href="./css/webkit/menu_black.css" />
-	        ';
-	        }
+	    <?php if ($browser == "Google Chrome" || $browser == "Apple Safari") {
+			echo '<link id="edu_menu" rel="stylesheet" type="text/css" href="/css/webkit/menu_black.css" />';
+		} else if ($browser == "Mozilla Firefox") {
+			echo '<link id="edu_menu" rel="stylesheet" type="text/css" href="/css/firefox/menu_black.css" />';
+		} else if ($browser == "Internet Explorer") {
+			echo '<link id="edu_menu" rel="stylesheet" type="text/css" href="/css/ie/menu_black.css" />';
+		} else {
+	        echo ' <link id="edu_menu" rel="stylesheet" type="text/css" href="/css/webkit/menu_black.css" /> ';
+	    }
 		?>
 	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	    <script type="text/javascript" src="js/functions.js"></script>
-		<script type="text/javascript" src="js/links.js"></script>
-		<script type="text/javascript" src="js/jquery.js"></script>
+	    <script type="text/javascript" src="../js/functions.js"></script>
+		<script type="text/javascript" src="../js/links.js"></script>
+		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript"> var user = '"<?php echo $user; ?>"' </script>
 	</head>
 	<body>
@@ -71,36 +53,40 @@ try {
 		</div>
 		<div id="sidebar_full">
 			<div id="sidebar_content">
-				<div id="posts" class="hover_sidebar" onclick="link('index.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Posts</p><br />
+				<div id="posts" class="hover_sidebar" onclick="link('/home')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Posts</p><br />
 				</div>
-				<div id="videos" class="hover_sidebar" onclick="link('popular.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Videos</p><br />
+				<div id="videos" class="hover_sidebar" onclick="link('/popular.php')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Videos</p><br />
 				</div>
-				<div id="Explore" class="hover_sidebar" onclick="link('latest_videos.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Explore</p><br />
+				<div id="explore" class="hover_sidebar" onclick="link('/latest_videos.php')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Explore</p><br />
 				</div>
-				<div id="Subscriptions" class="hover_sidebar" onclick="link('subs.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Subscriptions</p><br />
-				</div>
-				<div style="width:100%;border-bottom:1px solid darkgray;margin-bottom:10px;"></div>
-				<div id="videos" class="hover_sidebar" onclick="link('popular.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Popular</p><br />
-				</div>
-				<div id="invite" class="hover_sidebar" onclick="link('invite.php')">
-					<img src="#" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Invite</p><br />
+				<div id="subscriptions" class="hover_sidebar" onclick="link('/subs.php')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Subscriptions</p><br />
 				</div>
 				<div style="width:100%;border-bottom:1px solid darkgray;margin-bottom:10px;"></div>
-				<div id="support" class="hover_sidebar" onclick="link('#')">
-					<img src="<?php echo $supportImg; unset($supportImg); ?>" style="width:32px;height:32px" class="sidebar_img">
-					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text">Support Me</p><br />
+				<div id="popular" class="hover_sidebar" onclick="link('/popular.php')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Popular</p><br />
 				</div>
+				<div id="invite" class="hover_sidebar" onclick="link('/invite.php')">
+					<img alt="" src="#" class="sidebar_img">
+					<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Invite</p><br />
+				</div>
+				<div style="width:100%;border-bottom:1px solid darkgray;margin-bottom:10px;"></div>
+				<?php
+					if ($user != null && $user != "") {
+						echo '<div id="support" class="hover_sidebar" onclick="link(\'/upgrade\')">
+						<img alt="" src="#" class="sidebar_img">
+						<p style="font-family:comicSansMS;font-weight:bold;font-size:large" class="sidebar_text black">Upgrade</p><br />
+						</div>';
+					}
+				?>
 			</div>
 		</div>
 		<div id="wrapper">
@@ -112,11 +98,11 @@ try {
 	                        <li class="menu_newmembers"><a href="/latest_members.php">RECENT MEMBERS</a></li>
 	                        <li class="menu_channels"><a href="#">CHANNELS</a></li>
 	                        <?php if ($user == "") {
-					echo '<li class="menu_login"><a href="login.php">LOGIN</a></li>
-					<li class="menu_join"><a href="join.php">CREATE AN ACCOUNT</a></li>';
+					echo '<li class="menu_login"><a href="/login">LOGIN</a></li>
+					<li class="menu_join"><a href="/join">CREATE AN ACCOUNT</a></li>';
 				} else {
-		                        echo '<li class="menu_login"><a href="members.php">MEMBERS</a></li>
-		                        <li class="menu_login"><a href="logout.php">LOGOUT</a></li>';
+		                        echo '<li class="menu_login"><a href="/members">MEMBERS</a></li>
+		                        <li class="menu_login"><a href="/logout.php">LOGOUT</a></li>';
 				}
 	                        ?>
 
@@ -140,7 +126,7 @@ try {
 } catch(Exception $e) {
 	if ($e->getMessage() == "error logging in") {
 		if ($_SERVER['REQUEST_URI'] != "/login.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/login/" && $_SERVER['REQUEST_URI'] != "/join.php" && $_SERVER['REQUEST_URI'] != "tutorials/videobox/join/") {
-			echo '<script type="text/javascript">link("login.php")</script>';
+			//echo '<script type="text/javascript">link("login.php")</script>';
 		}
 	} else
 		die("an error has occured");

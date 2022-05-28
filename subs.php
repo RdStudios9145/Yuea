@@ -14,7 +14,7 @@ if (count($subs) == 0) {
 		$vidChannel = $subs[$i]['channel_name'];
 		$vidMember = $subs[$i]['member_name'];
 		if (count($vids) > 0) {
-			echo '<blockquote class="post"><header class="post_header"><img src="data/users/images/icons/default.jpg" style="border-radius: 100%;" class="post_img"><img src="images/arrow_down.png" style="height:16px;position:absolute;right:5px;top:calc(50% - 8px);'.$css.'" class="post_arrow"><h2 class="post_channel_name">'.$vidChannel.'</h2><h4 class="post_member_name">'.$vidMember.'</h2></header></blockquote>';
+			echo '<blockquote class="post"><header class="post_header"><img alt="" src="data/users/images/icons/default.jpg" style="border-radius: 100%;" class="post_img"><img alt="" src="images/arrow_down.png" style="height:16px;position:absolute;right:5px;top:calc(50% - 8px);'.$css.'" class="post_arrow"><h2 class="post_channel_name">'.$vidChannel.'</h2><h4 class="post_member_name">'.$vidMember.'</h2></header></blockquote>';
 			$css = 'transform:rotate(90deg)';
 		}
 	}

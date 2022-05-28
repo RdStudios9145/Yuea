@@ -1,6 +1,10 @@
 var start = 50;
 var working = false;
 
+function postData(posts, index) {
+	return '<blockquote class="post"><header class="post_header"><img alt="" src="data/users/images/icons/default.jpg" style="border-radius: 100%;" class="post_img"><h2 class="post_channel_name white">'+posts[index].PostChannel+'</h2><h4 class="post_member_name white">'+posts[index].PostMember+'</h2></header><p>'+posts[index].PostBody+'</p><footer><button class="btn btn-default like" data-id="'+posts[index].PostId+'" data-action="Like" type="button" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span data-likes="'+posts[index].PostLikes+'">'+posts[index].PostLikes+' Likes</span></button><button class="btn btn-default comment" type="button" data-id="'+posts[index].PostId+'" data-action="Replys" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-flash" style="color:#f9d616;"></i><span style="color:#f9d616;"> Replys</span></button></footer><div class="post_border" style="border-bottom:1px solid rgb(47, 51, 54);margin-top:15px"></div></blockquote>'
+}
+
 $(document).ready(function() {
 
 	$.ajax({
@@ -12,12 +16,32 @@ $(document).ready(function() {
 		data: '',
 		success: function(r) {
 			var posts = JSON.parse(r)
-			console.log(posts)
 			$.each(posts, function(index) {
 				$('.timelineposts').html(
-					$('.timelineposts').html() + '<blockquote class="post"><header class="post_header"><img src="data/users/images/icons/default.jpg" style="border-radius: 100%;" class="post_img"><h2 class="post_channel_name">'+posts[index].PostChannel+'</h2><h4 class="post_member_name">'+posts[index].PostMember+'</h2></header><p>'+posts[index].PostBody+'</p><footer><button class="btn btn-default" data-id="'+posts[index].PostId+'" data-action="Like" type="button" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span>'+posts[index].PostLikes+' Likes</span></button><button class="btn btn-default comment" type="button" data-id="'+posts[index].PostId+'" data-action="Replys" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-flash" style="color:#f9d616;"></i><span style="color:#f9d616;"> Replys</span></button></footer><div class="post_border" style="border-bottom:1px solid rgb(47, 51, 54);margin-top:15px"></div></blockquote>'
+					$('.timelineposts').html() + postData(posts, index)
 				)
 			})
+		}
+	})
+
+	$(document).on('click', function(e) {
+		target = $(e.target)
+		b = target.closest('button')
+		s = b.find('span')
+		if (b.hasClass('like')) {
+			$.ajax({
+				type: "GET",
+				url: "api/like.php?id="+parseInt(b.data('id'))+"&data="+s.data('likes')+"&html="+s.html(),
+				processData: false,
+				contentType: "application/json",
+				data: '',
+				success: function(r) {
+					console.log(":)", r);
+				}
+			})
+			s.html(
+				(parseInt(s.data('likes')) + 1) + ' Likes'
+			)
 		}
 	})
 
@@ -53,7 +77,7 @@ $(document).ready(function() {
 						var posts = JSON.parse(r)
 						$.each(posts, function(index) {
 							$('.timelineposts').html(
-								$('.timelineposts').html() + '<blockquote class="post"><header class="post_header"><img src="data/users/images/icons/default.jpg" style="border-radius: 100%;" class="post_img"><h2 class="post_channel_name">'+posts[index].PostChannel+'</h2><h4 class="post_member_name">'+posts[index].PostMember+'</h2></header><p>'+posts[index].PostBody+'</p><footer><button class="btn btn-default" data-id="'+posts[index].PostId+'" data-action="Like" type="button" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-heart" data-aos="flip-right"></i><span><span class="likes">'+posts[index].PostLikes+'</span> Likes</span></button><button class="btn btn-default comment" type="button" data-id="'+posts[index].PostId+'" data-action="Replys" style="color:#eb3b60;background-image:url(&quot;none&quot;);background-color:transparent;"><i class="glyphicon glyphicon-flash" style="color:#f9d616;"></i><span style="color:#f9d616;"> Replys</span></button></footer><div class="post_border" style="border-bottom:1px solid rgb(47, 51, 54);margin-top:15px"></div></blockquote>'
+								$('.timelineposts').html() + postData(posts, index)
 							)
 						})
 						start += 15

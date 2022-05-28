@@ -2,8 +2,13 @@ RewriteBase /
 RewriteEngine On
 RewriteRule "^channel/([a-zA-Z0-9_-]+)$" "channel.php?c=$1"
 RewriteRule "^watch/([a-zA-Z0-9_-]+)$" "watch.php?videoid=$1"
-RewriteRule "^([a-zA-Z0-9_-]+)$" "profile.php?u=$1"
+RewriteRule "^u/([a-zA-Z0-9_-]+)$" "profile.php?u=$1"
 RewriteRule "^login" "login.php"
+RewriteRule "^home" "index.php"
+RewriteRule "^join/([a-zA-Z0-9_-]+)$" "join.php?inv=$1"
 RewriteRule "^join" "join.php"
-# TODO: Fix content loading error with htacces
+RewriteRule "^upgrade/([a-zA-Z0-9_-]+)&" "upgrade.php?code=$1"
+RewriteRule "^upgrade" "upgrade.php"
+RewriteRule "^members" "members.php"
+# DONE: Fix content loading error with htacces
 # TODO: _General_ Optimize for mobile

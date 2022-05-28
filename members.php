@@ -12,9 +12,9 @@ if ($numrows_profile_pic >0) {
 		$profile_pic = $row['profile_pic'];
 
 		if ($profile_pic == '') {
-			echo "<img src='./data/users/images/icons/default.jpg' height='120'>";
+			echo "<img alt='' src='./data/users/images/icons/default.jpg' height='120'>";
 		} else {
-			echo "<img src='./data/users/images/icons/$profile_pic' height='120'>";
+			echo "<img alt='' src='./data/users/images/icons/$profile_pic' height='120'>";
 		}
 	}
 } else {

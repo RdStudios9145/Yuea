@@ -31,15 +31,18 @@ if (isset($_POST['message'])) {
 		}
 		echo '<div class="create_post">
 			<form action="index.php" method="post" style="position:relative;">
-				Channel: <select id="channel" name="channel" required="true">
+				<label for="channel">Channel: </label><select id="channel" name="channel" required style="background-color: transparent;">
 					<option value="">-----</option>
 					'.$b.'
 				</select>
-				<textarea class="post_body" name="post_body" maxlength="255" required="true" style="background-color:transparent"></textarea>
+				<textarea class="post_body" name="post_body" maxlength="255" required style="background-color:transparent"></textarea>
 				<div class="char_number" contenteditable="false">
 					<p class="char_number_p">255</p>
+				</div>
+				<div id="post_image_button_containter">
+					<input type="file" id="post_image_button" name="image" accept="image/png, image/jpeg">
 				</div><br />
-				<input type="submit" name="post" value="post" id="post" disabled="true">
+				<input type="submit" name="post" value="post" id="post" disabled>
 			</form>
 		</div>';
 	}

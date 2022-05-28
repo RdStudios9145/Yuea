@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 			$_SESSION['username'] = $username;
 			$_SESSION['id'] = DB::query("SELECT id FROM users WHERE username='$username'")[0]['id'];
 			//$_SESSION['channelname'] = DB::query('SELECT channel_name FROM channels WHERE created_by=:created_by', array(':created_by'=>$username))[0]['channel_name'];
-			header('Location: index.php');
+			header('Location: /home');
 			exit;
 
                 } else {
@@ -35,8 +35,11 @@ if ($loggedIn) {
 
 ?>
 <h2>Login to Your Account</h2>
-<form action='login.php' method='POST'>
-<input type='text' name='username' placeholder='Username ...'/><p />
-<input type='password' name='password' placeholder='Password ...'/><p />
-<input type='submit' name='submit' value='Login to my Account' />
+<form action='login.php' method='post'><p>
+	<label for="username">Username:</label><br>
+	<input type='text' name='username' id='username' placeholder='exampleUsername'/><p />
+	<label for="password">Password:</label><br>
+	<input type='password' name='password' id="password" placeholder='examplePassw0rd'/><p />
+	<label for="submit" style="display: none;">Login</label>
+	<input type='submit' name='submit' id="submit" value='Login to my Account' />
 </form>

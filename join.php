@@ -65,14 +65,17 @@ if (count($check_inv) == 1) {
 						if ($confWork) {
 							$newConfCode = substr(str_shuffle($chars), 0, 120);
 							$confCheck = DB::query("SELECT conf_code FROM confirmation WHERE conf_code='$newConfCode'");
-							if (count($invCheck) == 0)
+							if (count($confCheck) == 0)
 								$confWork = false;
 						}
 					}
 					try {
-						$register = DB::query("INSERT INTO users VALUES('','$firstname','$lastname','$username','$email', '$password','$dob','no','','$date','$newInvCode','0')") ?? throw new \Exception("Error Processing Request", 1);
-						$confRegister = DB::query("INSERT INTO confirmation VALUES('','$newConfCode','$username','$email')") ?? throw new \Exeption("Error Processing Request", 1);
+						$register = DB::query("INSERT INTO users VALUES('','$firstname','$lastname','$username','$email', '$password','$dob','no','','$date','$newInvCode','0')");
+						$confRegister = DB::query("INSERT INTO confirmation VALUES('','$newConfCode','$username','$email')");
 						mail::send(1, $email, $newConfCode);
+						$_SESSION['username'] = $username;
+						$_SESSION['id'] = DB::query("SELECT id FROM users WHERE username='$username'")[0]['id'];
+						header("Location: /home");
 					} catch (Exeption) {
 						die("There was an error trying to create your account, please try again at another time");
 					}
@@ -85,7 +88,7 @@ if (count($check_inv) == 1) {
 }
 ?>
 <h2>Create Your Account</h2>
-<form action='join.php?inv=<?php echo $invCode ?>' method='POST'>
+<form action='/join/<?php echo $invCode ?>' method='POST'>
 <input type='text' name='firstname' placeholder='Firstname ...'/><p />
 <input type='text' name='lastname' placeholder='Lastname ...'/><p />
 <input type='text' name='username' placeholder='Username ...'/><p />
